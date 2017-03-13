@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>introduction of Echart</title>
+<style>
+table{border-collapse:collapse; margin-left:60px; border:1px solid pink; float:left;}
+tr{height：40px;}
+td{font-size:18px; height:40px; text-align: center; width:60px;}
+#main{float:left; height:600px; width:1000px; margin-top:100px;}
+#title{text-align: center;}
+</style>
+</head>
+<body>
+	<div id="title"><h2>Read data form the table</h2></div>
+<table border="1">
+	<tr>
+		<td>产品</td>
+		<td>销量</td>
+	</tr>
+	<tr>
+		<td>产品1</td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>产品2</td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>产品3</td>
+		<td>25</td>
+	</tr>
+	<tr>
+		<td>产品4</td>
+		<td>20</td>
+	</tr>
+	<tr>
+		<td>产品5</td>
+		<td>10</td>
+	</tr>
+	<tr>
+		<td>产品6</td>
+		<td>5</td>
+	</tr>
+	<tr>
+		<td>产品1</td>
+		<td>40</td>
+	</tr>
+	<tr>
+		<td>产品2</td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>产品3</td>
+		<td>25</td>
+	</tr>
+	<tr>
+		<td>产品4</td>
+		<td>20</td>
+	</tr>
+	<tr>
+		<td>产品5</td>
+		<td>10</td>
+	</tr>
+	<tr>
+		<td>产品6</td>
+		<td>5</td>
+	</tr>
+
+</table>
+<div id="main" style="height:400px;">
+
+</div>
+<div id="third">
+<button>login</button>
+</div>
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script type="text/javascript">
+//配置路径
+require.config({
+	paths:{
+		echarts:'http://echarts.baidu.com/build/dist'
+	}
+});
+
+//使用
+require(
+	[
+		'echarts',
+		'echarts/chart/bar' //使用柱状图加载bar模块，按需加载
+	],
+	function(ec){
+		//基于准备好的dom，初始化echarts图表
+		var myChart = ec.init(document.getElementById('main'));
+		var tab = document.getElementsByTagName("table")[0];
+		var data = [];
+		var num = [];
+		for(var i=1; i<tab.rows.length; i++){
+			data[i-1] = tab.rows[i].cells[0].innerHTML;
+			num[i-1] = tab.rows[i].cells[1].innerHTML;
+		}
+		var option = {
+			tooltip:{
+				show:true
+			},
+			legend:{
+				data:['销量']
+			},
+			xAxis:[
+				{
+					type:'category',
+					data:data
+				}
+			],
+			yAxis:[
+				{
+					type:'value'
+				}
+			],
+			series:[
+				{
+					"name":"销量",
+					"type":"bar",
+					"data":num
+				}
+			]
+		};
+
+		//为echarts对象加载数据
+		myChart.setOption(option);
+	}
+	);
+</script>
+</body>
+</html>
